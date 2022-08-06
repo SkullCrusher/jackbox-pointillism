@@ -3,24 +3,35 @@ import win32api
 import win32con
 from pynput.mouse import Button, Controller
 from PIL import Image
+from math import sqrt
 
-image = "./sample.png"
+# 8 is kinda okay
+# 7 is LIT
+
+image = "./sample7.png"  # "example2.jpg"  #
 delay = 2
 
-colors = [
-    [0, 0, 0],       # black
-    [243, 41, 56],   # red
-    [255, 165, 0],   # orange
-    [248, 230, 85],  # yellow
-    [68, 213, 68],   # green
-    [0, 70, 174],    # blue
-    [188, 77, 248],  # purple
-    [99, 74, 44],    # brown
-    [255, 255, 255]  # white
-]
+colors = (
+    (0, 0, 0),       # black
+    (243, 41, 56),   # red
+    (255, 165, 0),   # orange
+    (248, 230, 85),  # yellow
+    (68, 213, 68),   # green
+    (0, 70, 174),    # blue
+    (188, 77, 248),  # purple
+    (99, 74, 44),    # brown
+    (255, 255, 255)  # white
+)
+
+# The color location in relationship to the top left.
+color_offset_x = 305
+color_offset_y = -35
+
+# How many pixels are inbetween each color
+color_space = 33
 
 # Width is 580x580.
-canvas_height_width = 50  # 570
+canvas_height_width = 595
 
 # DPI - how many pixels in between each.
 dpi = 10
@@ -68,23 +79,62 @@ def click(x, y):
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
 
 
-# r, g, b = rgb_im.getpixel((1, 1))
+def pick_color(index):
+    time.sleep(0.5)
+    click_x = base_x + color_offset_x + (index * color_space)
+    click_y = base_y + color_offset_y
+    click(click_x, click_y)
+    time.sleep(0.5)
 
-# for i in range(0, 10):
-#    click(base_x + i * 25, base_y)
+'''
+# Pick the color off the sheet which is the closest.
+def determine_which_color(list, r, g, b):
+    picked = 0
+    picked_weight = 10000000000
 
-# click(10,10)
+    for i in range(0, len(list)):
+        tmp_weight = abs(list[i][0] - r) + abs(list[i][1] - g) + abs(list[i][2] - b)
+
+        if tmp_weight < picked_weight:
+            picked = i
+            picked_weight = tmp_weight
+
+    return picked
+'''
+
+
+def closest_color(r, g, b):
+    color_diffs = []
+    for color in colors:
+        cr, cg, cb = color
+        color_diff = sqrt((r - cr)**2 + (g - cg)**2 + (b - cb)**2)
+        color_diffs.append((color_diff, color))
+    return min(color_diffs)[1]
+
 
 def draw_image(image):
+    image.show()
 
     # Map each pixel.
-    for color in colors:
+    for i in range(0, len(colors)):
+        pick_color(i)
+
+        c_r = colors[i][0]
+        c_g = colors[i][1]
+        c_b = colors[i][2]
+
         for x in range(0, int(resize_height)):
             for y in range(0, int(resize_width)):
 
-                print("color", color)
+                # Get the color of the pixel.
+                r, g, b = image.getpixel((x, y))
 
-                # Skip if it's not the right color.
+                # Pick from our list.
+                picked = closest_color(r, g, b)
+
+                # Only color in the color that match (to keep from changing colors constantly).
+                if picked[0] != c_r or picked[1] != c_g or picked[2] != c_b:
+                    continue
 
                 # Generate the position to click.
                 click_x = base_x + (x * dpi)
