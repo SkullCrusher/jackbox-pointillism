@@ -69,7 +69,7 @@ resize_height = canvas_height_width // dpi
 
 
 def load_image(path):
-    tmp = Image.open(path)
+    tmp = Image.open(path).convert('RGB')
     return tmp.resize((resize_width, resize_height), resample=Image.BILINEAR, box=None)
 
 
