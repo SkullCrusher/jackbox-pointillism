@@ -86,22 +86,6 @@ def pick_color(index):
     click(click_x, click_y)
     time.sleep(0.5)
 
-'''
-# Pick the color off the sheet which is the closest.
-def determine_which_color(list, r, g, b):
-    picked = 0
-    picked_weight = 10000000000
-
-    for i in range(0, len(list)):
-        tmp_weight = abs(list[i][0] - r) + abs(list[i][1] - g) + abs(list[i][2] - b)
-
-        if tmp_weight < picked_weight:
-            picked = i
-            picked_weight = tmp_weight
-
-    return picked
-'''
-
 
 def closest_color(r, g, b):
     color_diffs = []
