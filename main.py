@@ -5,11 +5,38 @@ from pynput.mouse import Button, Controller
 from PIL import Image
 from math import sqrt
 
-# 8 is kinda okay
-# 7 is LIT
+"""
+# Pop cat (good quality).
+image = "./sample7.png"
 
-image = "./sample7.png"  # "example2.jpg"  #
-delay = 2
+# Frog.
+image = "./sample2.png"
+
+# Duck.
+image = "./duck.jpg"
+
+# Some maze.
+image = "./maze.jpg"
+
+# pika
+image = "./pikachu.jpg"
+
+# Squid.
+image = "./squid.jpg"
+
+# Cats suck.
+image = "./cats.jpg" 
+
+# Poor quality.
+image = "./lofi.jpg"
+
+# Poor quality.
+image = "./bike.png" 
+
+"""
+
+image = "./sample7.png"
+delay = 5
 
 colors = (
     (0, 0, 0),       # black
@@ -97,7 +124,7 @@ def closest_color(r, g, b):
 
 
 def draw_image(image):
-    image.show()
+    # image.show()
 
     # Map each pixel.
     for i in range(0, len(colors)):
