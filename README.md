@@ -4,7 +4,7 @@
 
 > Picture to pointillism art
 
-Simple python script to automate drawing art in JackBox 3: T-Shirt K-O by pointillism. I only had an hour and a half to write this script before the Twitch stream, so it is very rough.
+Simple python script to automate drawing a picture as art in JackBox 3: T-Shirt K-O by pointillism. I only had an hour and a half to write this script before the Twitch stream, so it is very rough.
 
 ## Getting Started
 Installing
@@ -15,7 +15,7 @@ pip install pillow pynput pywin32
 ## Understanding how to use it
 Instead of injecting into the browser and controlling the canvas directly, this script uses the mouse and clicks on the points based on a reference point. 
 
-1. Change the selected image path in **main.py** to an image file.
+1. Change the selected image path in **main.py** to an image file. It can take most images because pillow is great about image support.
 2. Start the script and move the cursor to the top left of the drawing canvas.
 3. Wait for the script to finish drawing the art.
    1. You have to start the script the moment the canvas comes up because it takes 50 seconds to draw, and you have an about 60 second time limit.
