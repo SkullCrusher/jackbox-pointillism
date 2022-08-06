@@ -29,7 +29,10 @@ There are two large limitations with the script that are very important to under
    1. There are only nine colors which leads to a lot of blending.
    2. The math I am using to determine the closest color is a little flawed. You will tend to get a lot of browns because it has lower weight on average. The fastest way I could find to help prevent a brown wash on the image is bumping up the colors and contrast heavily in photoshop. It would be possible to fix it, but I probably won't use the script again.
 2. The resolution on the image is very small (59x59).
-   1. 
+   1. The script will automatically resize the image to fit in the resolution configured which ~~may~~ will produce a low quality output.
+   2. I put a tiny bit of space inbetween each dot to help with speed and clarity. You can adjust it, but it quickly starts smugging the output when moved closer together.
+3. The game will start to glitch out if you draw too many points for it to render.
+   1. The number of points is 3,481 (59x59) which will cause the game to glitch out if you have two pointillism shirts fighting at once.
 
 
 ## Samples
